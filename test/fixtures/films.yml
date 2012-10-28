@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  netflix_id: MyString
+  title: MyString
+  rating: 1
+
+two:
+  netflix_id: MyString
+  title: MyString
+  rating: 1
