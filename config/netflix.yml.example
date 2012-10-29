@@ -1,0 +1,12 @@
+defaults: &defaults
+  consumer_key: abc321321defgh
+  consumer_secret: abcdef532432gh
+
+development: 
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production: 
+  <<: *defaults

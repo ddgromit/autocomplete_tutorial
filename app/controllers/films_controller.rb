@@ -80,4 +80,33 @@ class FilmsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def autocomplete
+    keys = YAML.load_file(Rails.root.join("config","netflix.yml"))[Rails.env]
+    consumer = OAuth::Consumer.new(keys["consumer_key"], keys["consumer_secret"],
+        :site => "http://api-public.netflix.com", 
+        :request_token_url => "http://api-public.netflix.com/oauth/request_token", 
+        :access_token_url => "http://api-public.netflix.com/oauth/access_token", 
+        :authorize_url => "https://api-user.netflix.com/oauth/login")
+
+    # Create the Request
+    args = {
+      :output => "json",
+      :term => params[:term],
+      :max_results => 5
+    }
+    url = "http://api-public.netflix.com/catalog/titles?#{args.to_query}"
+    req = consumer.create_signed_request :get, url
+    response = JSON.parse consumer.http.request(req).body
+
+    # Construct autocomplete source
+    titles = response["catalog_titles"]["catalog_title"]
+    jsons = titles.map do |title|
+      {
+        :label => "#{title["title"]["regular"]} (#{title["release_year"]})", 
+        :netflix_id => title["id"]
+      }
+    end
+    render :json => jsons
+  end
 end

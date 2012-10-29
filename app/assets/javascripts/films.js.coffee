@@ -3,9 +3,6 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 $ ->
 	$("#film_title").autocomplete
-		source: [
-			{'label':'Moonrise Kingdom',netflix_id:'1'}, 
-			{'label':'Twelve Monkeys',netflix_id:'2'}
-		]
+		source: "autocomplete"
 		select: (e, ui) ->
 			$("#film_netflix_id").val ui.item.netflix_id
