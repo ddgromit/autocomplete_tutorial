@@ -12,12 +12,9 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :netflix_id %><br />
-    <%= f.text_field :netflix_id %>
-  </div>
-  <div class="field">
     <%= f.label :title %><br />
     <%= f.text_field :title %>
+    <%= f.hidden_field :netflix_id %>
   </div>
   <div class="field">
     <%= f.label :rating %><br />
